@@ -14,4 +14,11 @@ class SearchForm(FlaskForm):
     search = StringField("Search")
     submit = SubmitField("Submit")
 
+class LoginForm(FlaskForm):
+    challenge = PasswordField("Challenge")
+    submit = SubmitField("Submit")
 
+class RegisterForm(FlaskForm):
+    username = StringField("Username", validators=[DataRequired()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    submit = SubmitField("Save")
