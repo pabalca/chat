@@ -14,18 +14,25 @@
     <div class="col-auto">{{ form['submit'](class='btn btn-success mb-2') }}</div>
   </div>
 </form>
+
 <hr>
 
 <div class="list-group">
-  {% for contact in contacts %}
-  <a href="{{ url_for('conversation', friend=contact["username"]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+  {% for message in messages %}
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{ contact["username"] }}</h5>
-      <small>{{ contact["last"] }}</small>
+      <h5 class="mb-1">{{ message.text }}</h5>
+      <small>{{ message.created_at }}</small>
     </div>
-      <small>( {{contact["last_talker"]}} ) {{ contact["text"] }}</small>
+    <small>Who: {{ message.who }}</small>
+    <small>To : {{ message.to }}</small>
   {% endfor %}
   </a>
 </div>
+
+{% for contact in contacts %}
+<p>{{ contact["contact"] }}</p>
+<p>{{ contact["last"] }}</p>
+{% endfor %}
 
 {% endblock %}

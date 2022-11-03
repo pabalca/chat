@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>
-    {% block title %}Rules{% endblock %}
+    {% block title %}Messages{% endblock %}
     </title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css' ) }}">
     <script src="{{ url_for('static', filename='js/bootstrap.min.js' ) }}"></script>
@@ -17,7 +17,7 @@
     <nav class="navbar navbar-default navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ url_for('index') }}">
             <img src="{{ url_for('static', filename='plus.svg' ) }}" width="30" height="30" alt="">
-            Rules
+            Messages
         </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

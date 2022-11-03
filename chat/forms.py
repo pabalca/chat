@@ -4,9 +4,8 @@ from wtforms.validators import DataRequired
 
 
 class MessageForm(FlaskForm):
-    who = StringField("Who", validators=[DataRequired()])
-    to = StringField("To", validators=[DataRequired()])
     text = StringField("Message", validators=[DataRequired()])
+    to = StringField("To", validators=[DataRequired()])
     submit = SubmitField("Send")
 
 
@@ -15,6 +14,7 @@ class SearchForm(FlaskForm):
     submit = SubmitField("Submit")
 
 class LoginForm(FlaskForm):
+    username = StringField("Username")
     challenge = PasswordField("Challenge")
     submit = SubmitField("Submit")
 
