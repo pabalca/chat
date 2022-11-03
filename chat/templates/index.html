@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}New Autotrader{% endblock %}
+
+{% block content %}
+
+<h2>Messages</h2>
+<hr>
+<form method="post">
+  {{ form.hidden_tag() }}
+  <div class="form-row align-items-center">
+    <div class="col-auto">{{ form['who'](class='form-control mb-2', placeholder="Who") }}</div>
+    <div class="col-auto">{{ form['to'](class='form-control mb-2', placeholder="To") }}</div>
+    <div class="col-auto">{{ form['text'](class='form-control mb-2', placeholder="Message") }}</div>
+    <div class="col-auto">{{ form['submit'](class='btn btn-success mb-2') }}</div>
+  </div>
+</form>
+
+<hr>
+
+<div class="list-group">
+  {% for message in messages %}
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{ message.text }}</h5>
+      <small>{{ message.created_at }}</small>
+    </div>
+    <small>Who: {{ message.who }}</small>
+    <small>To : {{ message.to }}</small>
+  {% endfor %}
+  </a>
+</div>
+{% endblock %}
