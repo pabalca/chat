@@ -28,7 +28,7 @@
                 <a class="nav-link" href="#">friends</a>
             </li>
         </ul>
-<small><a title="{{ session.get('user')}}" href="{{ url_for('logout') }}">logout</a></small>
+<small><a title="{{ session.get('user')}}" href="{{ url_for('logout') }}">( {{ session.get('username')}}  ) logout</a></small>
     </div>
 </nav>
 <hr>

@@ -33,6 +33,7 @@ def login():
             if user.verify_password(challenge) and user.username == username:
                 session["logged_in"] = True
                 session["user"] = user.id
+                session["username"] = user.username
                 return redirect(url_for("index"))
     return render_template("login.html", form=form, session=session)
 
@@ -123,9 +124,8 @@ def conversation(friend):
         m = Message(who=who, to=to, text=text)
         db.session.add(m)
         db.session.commit()
-        flash("message sent")
         return redirect(url_for("conversation", friend=friend))
-    return render_template("conversation.html", form=form, messages=messages)
+    return render_template("conversation.html", form=form, messages=messages, friend=friend)
 
 
 @app.route("/clear/<message_id>", methods=["GET", "POST"])

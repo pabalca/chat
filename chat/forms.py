@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired
 
 
 class MessageForm(FlaskForm):
-    text = StringField("Message", validators=[DataRequired()])
+    text = StringField("Message", validators=[DataRequired()], render_kw={'autofocus': True})
     to = StringField("To", validators=[DataRequired()])
     submit = SubmitField("Send")
 

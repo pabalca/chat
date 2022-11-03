@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h2>Messages</h2>
+<h2>Messages with {{ friend }} </h2>
 <hr>
 <form method="post">
   {{ form.hidden_tag() }}
@@ -21,11 +21,9 @@
   {% for message in messages %}
   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{ message.text }}</h5>
+      <h6 class="mb-1"><small>({{ message.who }}) $ </small>{{ message.text }}</h6>
       <small>{{ message.created_at }}</small>
     </div>
-    <small>Who: {{ message.who }}</small>
-    <small>To : {{ message.to }}</small>
   {% endfor %}
   </a>
 </div>
@@ -36,3 +34,4 @@
 {% endfor %}
 
 {% endblock %}
+
