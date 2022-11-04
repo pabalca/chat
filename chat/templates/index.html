@@ -21,7 +21,7 @@
   <a href="{{ url_for('conversation', friend=contact["username"]) }}" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ contact["username"] }}</h5>
-      <small>{{ contact["last"] }}</small>
+      <small>{{ contact["last_fmt"] }}</small>
     </div>
       <small>( {{contact["last_talker"]}} ) {{ contact["text"] }}</small>
   {% endfor %}

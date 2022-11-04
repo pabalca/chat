@@ -17,7 +17,7 @@ def initdb(drop):
     db.create_all()
     click.echo("Initialized database.")
 
-    u = User(username="admin", pwd="admin")
+    u = User(username="admin", pwd="#Chuleta23Cordero")
     db.session.add(u)
     db.session.commit()
     click.echo("Admin user created.")

@@ -1,5 +1,6 @@
 from flask import abort, flash, redirect, render_template, session, url_for, request
 from sqlalchemy import or_, and_
+from datetime import datetime
 
 from chat import app
 from chat.models import User, Message, db
@@ -7,11 +8,29 @@ from chat.forms import LoginForm, RegisterForm, MessageForm, SearchForm
 from chat.decorators import login_required
 
 
+def convert_timedelta(when):
+    now = datetime.now()
+    duration = now - when
+    days, seconds = duration.days, duration.seconds
+    hours = days * 24 + seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = (seconds % 60)
+
+    if hours < 1:
+        return f"~{minutes}m"
+    elif hours < 2:
+        return f"~{hours}h:{minutes}m"
+    elif hours > 24:
+        return f"~{days}d"
+    else:
+        return f"~{hours}h"
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        username = form.username.data
+        username = form.username.data.lower()
         password = form.password.data
         u = User(username=username, pwd=password)
         db.session.add(u)
@@ -51,8 +70,11 @@ def index():
     form = MessageForm()
     whoami = User.query.filter(User.id == session.get("user")).first().username
 
-    messages = Message.query.order_by(Message.created_at.desc())
-    messages = messages.filter(or_(Message.who == whoami, Message.to == whoami)).all()
+    messages = (
+        Message.query.order_by(Message.created_at.desc())
+        .filter(or_(Message.who == whoami, Message.to == whoami))
+        .all()
+    )
 
     # get the people you have had contact
     contact_with = set()
@@ -81,6 +103,7 @@ def index():
                     if contact == last_message.who
                     else last_message.who,
                     "last": last_message.created_at,
+                    "last_fmt": convert_timedelta(last_message.created_at)
                 }
             )
 
@@ -125,7 +148,9 @@ def conversation(friend):
         db.session.add(m)
         db.session.commit()
         return redirect(url_for("conversation", friend=friend))
-    return render_template("conversation.html", form=form, messages=messages, friend=friend)
+    return render_template(
+        "conversation.html", form=form, messages=messages, friend=friend
+    )
 
 
 @app.route("/clear/<message_id>", methods=["GET", "POST"])
